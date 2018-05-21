@@ -9,9 +9,10 @@ Un boot de configuration réseau en milieu hostile, pour des hôtes réseau Cent
 
 ## Predator Env.
 
-
+```
 export CENTRALIZED_ID_MGMT_USERNAME=jlasselle
 export CENTRALIZED_ID_MGMT_PWD=nimportequoi
+```
 
 
 ## étape 1 :  Avoir accès SSH à la VM
@@ -158,9 +159,21 @@ Le script est interactif, surveillez quand il vous demande de saisir votre mot d
 
 
 
+## étape 3: installer et configurer Git pour le proxy
+
+
+```
+# -- Configuration Globale
+# Donc parfois, certaines infrastructures IC/CD ont des certficats SSL autosignés....:
+git config --global http.sslVerify false
+# Mais l'on ne doit, bien entendu, JAMAIS, faire cela, chers confrères, bien entenu... DOnc l'on ne doit exécuter que:
+git config --global http.proxy http://$CENTRALIZED_ID_MGMT_USERNAME:$CENTRALIZED_ID_MGMT_PWD@manh.proxy.corp.sopra:8080
+git config --global https.proxy http://$CENTRALIZED_ID_MGMT_USERNAME:$CENTRALIZED_ID_MGMT_PWD@manh.proxy.corp.sopra:8080
+```
 
 
 
+# Previously, on a stupid planet..
 
 
 ```
@@ -170,7 +183,7 @@ cd provision-config-reseau-sys
 git clone "$URI_GIT_REPO" . && sudo operations.sh
 ```
 
-# Test it
+
 
 ```
 echo "Le résultat des opérations doit donner:"
