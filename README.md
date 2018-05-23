@@ -4,6 +4,21 @@ Un boot de configuration réseau en milieu hostile, pour des hôtes réseau Cent
  * Proxy
  * et autres dinosaures encore debouts
 
+# Scénario
+
+* Vous travaillez dans une infrastruture gérée par un service de l'entreprise de votre client.
+* Vous créez une VM virtualbox, avec 2 interfaces réseau "Bridge" , et 2 interfaces réseau "internal Network"
+* Vous installez CentOS 7 dans cette VM
+* En créant au moins un utilsiateur adminsitrateur
+* Lorsque l'installation de" CentOS est terminée:
+  * `openssh-server` est installé.
+  * 4 fichiers d'interface réseau existent `ls -all /etc/sysconfig/network-scripts/ifcfg-enp0s*`
+* Dans chacun de ces fichiers de configuration, un paramètre de configuration `ONBOOT=no` est explicitement précisé,
+* Et dans chacun de ces 4 fichiers, la valeur de ce paramètre de configuration doit être passée à `ONBOOT=yes`
+* puis le réseau re-démarré : `sudo systemctl restart network`
+
+
+
 
 # Play it: it's a future kickstart's post-installation script
 
